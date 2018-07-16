@@ -14,7 +14,7 @@ files.forEach(filename => {
   const content = []
 
   reader.on('line', line => {
-    content.push(line.trim())
+    content.push(line.trim().replace(/\s+/g, ' '))
   })
   reader.on('close', () => {
     const cleaned = content.filter((line, i) => {
