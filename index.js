@@ -73,30 +73,34 @@ function wordNsentenceCount (readers) {
 
 function wordFrequency (readers) {
   const wordTokenizer = new natural.TreebankWordTokenizer()
-  const freq = {}
+  const overallFreq = {}
 
   const threads = readers.map(reader => {
+    const freq = {}
     reader.on('line', filterRelevant(line => {
       const words = wordTokenizer.tokenize(line)
       words.forEach(w => {
         w = basicFilter(w)
+        overallFreq[w] = overallFreq[w] || 0
+        overallFreq[w]++
         freq[w] = freq[w] || 0
         freq[w]++
       })
     }))
 
     return new Promise((resolve, reject) => {
-      reader.on('close', resolve)
+      reader.on('close', () => resolve(freq))
     })
   })
 
-  return Promise.all(threads).then(() => {
-    const sorted = {}
-    Object.keys(freq).sort((a, b) => freq[b] - freq[a]).forEach(c => {
-      sorted[c] = freq[c]
+  return Promise.all(threads).then(results => {
+    const combined = {}
+    files.forEach((filename, i) => {
+      combined[filename.slice(0, 4)] = results[i]
     })
-    fs.writeFileSync('data/words.json', JSON.stringify(sorted, null, 2))
-    return sorted
+    combined['OVERALL'] = overallFreq
+    fs.writeFileSync('data/words.json', JSON.stringify(combined, null, 2))
+    return combined
   })
 }
 
