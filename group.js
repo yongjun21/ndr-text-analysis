@@ -1,9 +1,9 @@
-const {sheets} = require('./google')
+const {sheets} = require('@st-graphics/backend/client/googleapis')
 const freq = require('./data/words.json')
 
 const params = {
   spreadsheetId: '1033yu1mQG-yShm7mYTSgiasagazBrjd-2N1FDIoMpJ0',
-  range: `Topics!A1:H`,
+  range: `Topics!A1:Z`,
   majorDimension: 'COLUMNS'
 }
 sheets.spreadsheets.values.get(params)

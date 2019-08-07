@@ -1,4 +1,4 @@
-const {sheets} = require('./google')
+const {sheets} = require('@st-graphics/backend/client/googleapis')
 
 const wordFreq = require('./data/words.json')
 const {STOP_WORDS} = require('./constants')

@@ -9,6 +9,7 @@
   "author": "Yong Jun",
   "license": "MIT",
   "dependencies": {
+    "@st-graphics/backend": "^0.1.48",
     "googleapis": "^32.0.0",
     "natural": "^0.6.1"
   }
