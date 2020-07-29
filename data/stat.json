@@ -71,7 +71,12 @@
   },
   {
     "year": "2018",
-    "words": 9630,
+    "words": 9631,
     "sentences": 687
+  },
+  {
+    "year": "2019",
+    "words": 9212,
+    "sentences": 645
   }
 ]
